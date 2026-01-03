@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Marketing Issues Draft | リアル施設向けマーケティング 課題仮説・施策簡易レポート</title>
+
+  <!-- Markdown renderer (client-side) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    :root{
+      /* Friendly JP SaaS theme */
+      --bg:#f6f8ff;
+      --panel:#ffffff;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --muted2:#64748b;
+      --line:rgba(15,23,42,.10);
+      --shadow: 0 14px 42px rgba(15,23,42,.08);
+      --shadow2: 0 10px 22px rgba(15,23,42,.06);
+      --radius: 18px;
+      --radius2: 22px;
+      --radius3: 28px;
+
+      --accent:#2563eb;
+      --accent2:#60a5fa;
+      --ok:#10b981;
+
+      --soft:#eef2ff;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+        "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+      background:
+        radial-gradient(900px 520px at 15% 0%, rgba(37,99,235,.15), transparent 60%),
+        radial-gradient(820px 560px at 92% 8%, rgba(96,165,250,.16), transparent 60%),
+        linear-gradient(180deg, rgba(37,99,235,.05), transparent 18%),
+        var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+
+    .wrap{ max-width:980px; margin:0 auto; padding:0 18px; }
+
+    /* ===== Nav ===== */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      background: rgba(246,248,255,.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .navInner{
+      display:flex; align-items:center; justify-content:space-between;
+      height:68px;
+      gap:12px;
+    }
+
+    .brand{ display:flex; align-items:center; gap:12px; min-width:0; }
+    .logo{
+      width:42px; height:42px; border-radius:16px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 12px 26px rgba(37,99,235,.18);
+      position:relative;
+      flex: 0 0 auto;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:12px;
+      border-radius:12px;
+      background: rgba(255,255,255,.55);
+    }
+    .brandText{ min-width:0; }
+    .brandText .name{
+      font-size:14px;
+      font-weight:950;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      letter-spacing:.1px;
+    }
+    .brandText .tag{
+      font-size:11px;
+      color: var(--muted2);
+      font-weight:800;
+      margin-top:2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .navLinks{
+      display:flex; align-items:center; gap:14px;
+      color: var(--muted2);
+      font-size:13px;
+      font-weight:800;
+    }
+    .navLinks a{ padding:8px 10px; border-radius: 999px; }
+    .navLinks a:hover{ color:var(--text); background: rgba(37,99,235,.06); }
+
+    .navCta{ display:flex; align-items:center; gap:10px; }
+
+    @media (max-width: 920px){
+      .navLinks{ display:none; }
+    }
+
+    /* ===== Buttons ===== */
+    .btn{
+      border:none;
+      padding:12px 14px;
+      border-radius: 14px;
+      cursor:pointer;
+      font-weight:900;
+      font-size:13px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition: .15s transform, .15s opacity, .15s box-shadow;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn:disabled{ opacity:.55; cursor:not-allowed; transform:none; }
+
+    .btnPrimary{
+      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+      color:#fff;
+      box-shadow: 0 12px 26px rgba(37,99,235,.22);
+    }
+    .btnGhost{
+      background: #fff;
+      border:1px solid var(--line);
+      color: var(--text);
+    }
+    .btnSoft{
+      background: rgba(37,99,235,.08);
+      border:1px solid rgba(37,99,235,.15);
+      color: #1d4ed8;
+    }
+    .btnSmall{ padding:10px 12px; border-radius:14px; font-size:12px; }
+
+    /* ===== Cards ===== */
+    .card{
+      background: var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .cardHeader{
+      padding:12px 14px;
+      display:flex; align-items:center; justify-content:space-between;
+      border-bottom:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(37,99,235,.07), rgba(96,165,250,.04));
+    }
+    .cardHeader h2{
+      margin:0;
+      font-size:14px;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-weight:950;
+    }
+    .cardHeader span{ color:var(--muted2); font-size:12px; font-weight:800; }
+    .cardBody{ padding:14px 14px; }
+
+    /* ===== Hero ===== */
+    .hero{ padding: 12px 0 6px; }
+    .heroCard{ border-radius: var(--radius3); }
+    .heroCard .cardBody{ padding:20px 18px 18px; }
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 10px;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:999px;
+      color: var(--muted2);
+      font-size:12px;
+      font-weight:900;
+      width:fit-content;
+      box-shadow: var(--shadow2);
+    }
+    .kdot{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--ok);
+      box-shadow: 0 0 0 6px rgba(16,185,129,.12);
+    }
+
+    h1{
+      margin:10px 0 8px;
+      font-size:34px;
+      line-height:1.16;
+      letter-spacing:-.4px;
+    }
+    @media (max-width: 520px){
+      h1{ font-size:30px; }
+    }
+
+    .sub{
+      margin:0;
+      color: rgba(15,23,42,.82);
+      line-height:1.75;
+      font-size:14px;
+      max-width: 66ch;
+    }
+
+    .heroCtas{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+      align-items:center;
+    }
+
+    .note{
+      margin-top:10px;
+      color: var(--muted2);
+      font-size:12px;
+      line-height:1.6;
+    }
+
+    /* ===== Bullet cards (3 across) ===== */
+    .bullets{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+      margin-top:14px;
+    }
+    @media (max-width: 820px){
+      .bullets{ grid-template-columns: 1fr; }
+    }
+
+    .bullet{
+      display:flex;
+      gap:10px;
+      padding:10px 10px;
+      border-radius: 18px;
+      border:1px solid var(--line);
+      background:#fff;
+      box-shadow: var(--shadow2);
+      align-items:flex-start;
+    }
+    .icon{
+      width:38px; height:38px;
+      border-radius:16px;
+      background: rgba(37,99,235,.08);
+      border:1px solid rgba(37,99,235,.14);
+      display:flex; align-items:center; justify-content:center;
+      font-size:18px;
+      flex:0 0 auto;
+    }
+    .bullet b{ display:block; font-size:13px; margin:0; font-weight:950; }
+    .bullet p{ margin:4px 0 0; color:var(--muted); font-size:12px; line-height:1.55; }
+
+    /* ===== Sections / Layout ===== */
+    .section{ padding: 6px 0; }
+
+    .twoCol{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .twoCol{ grid-template-columns: 1fr; }
+    }
+
+    /* ===== Form ===== */
+    label{
+      display:block;
+      font-size:12px;
+      color: var(--muted2);
+      margin:10px 0 8px;
+      font-weight:950;
+    }
+
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      outline:none;
+      background:#fff;
+      color: var(--text);
+      line-height:1.6;
+      font-size:13px;
+      box-shadow: 0 8px 18px rgba(15,23,42,.03) inset;
+    }
+
+    input:focus, textarea:focus{
+      border-color: rgba(37,99,235,.45);
+      box-shadow: 0 0 0 6px rgba(37,99,235,.12);
+    }
+
+    textarea{ min-height:110px; resize: vertical; }
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+      align-items:center;
+    }
+
+    .help{
+      font-size:12px;
+      color: var(--muted);
+      line-height:1.6;
+      margin-top:10px;
+    }
+
+    /* ===== Result ===== */
+    .status{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background:#f8fafc;
+      margin-bottom:12px;
+    }
+    .statusLeft{ display:flex; align-items:center; gap:10px; min-width:0; }
+
+    .spinner{
+      width:18px; height:18px; border-radius:999px;
+      border:2px solid rgba(15,23,42,.18);
+      border-top-color: var(--accent);
+      animation: spin .9s linear infinite;
+      display:none;
+    }
+    @keyframes spin{ to{ transform: rotate(360deg); } }
+
+    .statusText{
+      font-size:12px;
+      color: var(--muted);
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight:800;
+    }
+
+    .resultBox{
+      padding:16px 16px;
+      border-radius: 18px;
+      border:1px solid var(--line);
+      background:#fff;
+      min-height:440px;
+      overflow:auto;
+      box-shadow: var(--shadow2);
+    }
+
+    /* ===== Markdown theme ===== */
+    .md h1,.md h2,.md h3{ margin: 14px 0 10px; }
+    .md h1{ font-size:18px; }
+    .md h2{ font-size:16px; }
+    .md h3{ font-size:14px; }
+    .md p{ margin: 10px 0; color: rgba(15,23,42,.92); }
+    .md ul{ margin: 10px 0 10px 20px; }
+    .md li{ margin: 6px 0; }
+    .md hr{ border:0; border-top:1px solid var(--line); margin: 14px 0; }
+    .md code{
+      padding: 2px 6px;
+      border-radius: 8px;
+      background: rgba(37,99,235,.08);
+      border: 1px solid rgba(37,99,235,.12);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+    }
+    .md pre{
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: #0b1220;
+      color: #eaf0ff;
+      border:1px solid rgba(15,23,42,.10);
+      overflow:auto;
+    }
+    .md pre code{ border:none; background: transparent; padding:0; color:inherit; }
+    .md table{
+      width:100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size:12px;
+    }
+    .md th,.md td{
+      border:1px solid var(--line);
+      padding:10px 10px;
+      vertical-align: top;
+    }
+    .md th{ background: rgba(37,99,235,.06); color: rgba(15,23,42,.95); text-align:left; }
+    .md a{ color: var(--accent); }
+
+    /* ===== Pricing ===== */
+    .pricing{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 820px){
+      .pricing{ grid-template-columns: 1fr; }
+    }
+
+    .priceCard{ box-shadow:none; border:1px solid var(--line); }
+
+    .priceCard .cardBody{ padding:12px 12px; }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 8px;
+      border-radius:999px;
+      background: rgba(16,185,129,.10);
+      color: #065f46;
+      border:1px solid rgba(16,185,129,.20);
+      font-size:11px;
+      font-weight:950;
+      width:fit-content;
+      box-shadow: var(--shadow2);
+    }
+    .pillSoft{ background: var(--soft); border-color:#c7d2fe; color:#1d4ed8; }
+
+    .price{
+      font-size:22px;
+      font-weight:980;
+      margin:4px 0 4px;
+      letter-spacing:-.3px;
+    }
+    .price small{ font-size:12px; color:var(--muted2); font-weight:900; }
+
+    .list{
+      margin: 6px 0 0 18px;
+      color: rgba(15,23,42,.86);
+      font-size:12px;
+      line-height:1.55;
+    }
+    .list li{ margin:4px 0; }
+
+    .softNote{
+      font-size:12px;
+      color: var(--muted2);
+      line-height:1.6;
+      margin-top:10px;
+    }
+
+    /* ===== Feedback ===== */
+    .callout{
+      padding:12px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(37,99,235,.18);
+      background: rgba(37,99,235,.06);
+      color: rgba(15,23,42,.92);
+      box-shadow: var(--shadow2);
+    }
+    .callout b{ display:flex; align-items:center; gap:8px; font-weight:950; }
+    .callout p{ margin:8px 0 0; color: rgba(15,23,42,.78); font-size:12px; line-height:1.6; }
+
+    .footer{
+      padding: 22px 0 30px;
+      color: var(--muted);
+      font-size:12px;
+      text-align:center;
+      border-top: 1px solid var(--line);
+      margin-top: 12px;
+      background: rgba(255,255,255,.55);
+    }
+    .footer a{ color: var(--accent); font-weight:950; }
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="wrap">
+      <div class="navInner">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div class="brandText">
+            <div class="name">Marketing Issues Draft</div>
+            <div class="tag">リアル施設向けマーケティング 課題仮説・施策簡易レポート</div>
+          </div>
+        </div>
+
+        <nav class="navLinks" aria-label="ページ内リンク">
+          <a href="#how">アウトプット手順</a>
+          <a href="#pricing">料金</a>
+        </nav>
+
+        <div class="navCta">
+          <a class="btn btnSoft" href="#feedback">📝 要望フォーム</a>
+          <a class="btn btnPrimary" href="#trial">🚀 無料トライアル</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero" aria-label="ヒーロー">
+      <div class="card heroCard">
+        <div class="cardBody">
+          <div class="kicker"><span class="kdot" aria-hidden="true"></span> 無料トライアルで “レポート生成” を体験できます</div>
+          <h1>課題仮説から施策案の提示まで。まずは“たたき台”を1クリックで。</h1>
+          <p class="sub">第三者視点の“たたき台”で思考をスタート。最後の判断と磨き込みは、マーケター自身で。</p>
+          <div class="bullets" aria-label="特長">
+            <div class="bullet">
+              <div class="icon" aria-hidden="true">📌</div>
+              <div>
+                <b>公開情報から叩き台</b>
+                <p>WEB情報を整理し、課題の論点と仮説を下書き化します。</p>
+              </div>
+            </div>
+            <div class="bullet">
+              <div class="icon" aria-hidden="true">🔍</div>
+              <div>
+                <b>引用と推測を明確に</b>
+                <p>引用ベース／AI推測を分けて示し、納得感を担保します。</p>
+              </div>
+            </div>
+            <div class="bullet">
+              <div class="icon" aria-hidden="true">🏃</div>
+              <div>
+                <b>運用まで含めて提案</b>
+                <p>売上効果・費用・現場負荷まで揃え、実行可能性を高めます。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="heroCtas">
+            <a class="btn btnPrimary" href="#trial">🚀 無料トライアル</a>
+            <a class="btn btnGhost" href="#feedback">📝 要望フォーム</a>
+          </div>
+
+          <div class="note">※現時点は「リアル施設」を対象にしています。デジタルサービスなどを対象にしたマーケティングの活用向けには考慮出来ておりません。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW -->
+    <section class="section" id="how" aria-label="アウトプット手順">
+      <div class="card">
+        <div class="cardHeader">
+          <h2>🧩 アウトプット手順</h2>
+        </div>
+        <div class="cardBody">
+          <div class="bullets" style="margin-top:0;" aria-label="仕組みの流れ">
+            <div class="bullet">
+              <div class="icon" aria-hidden="true">🗂️</div>
+              <div>
+                <b>公開情報を整理</b>
+                <p>施設の特徴・提供価値・競合状況を、WEBサイトなどから要約。</p>
+              </div>
+            </div>
+            <div class="bullet">
+              <div class="icon" aria-hidden="true">📊</div>
+              <div>
+                <b>生成AIで課題仮説を特定</b>
+                <p>AIで顧客の思考を生成し、課題が大きいと思われる箇所を特定。</p>
+              </div>
+            </div>
+            <div class="bullet">
+              <div class="icon" aria-hidden="true">✅</div>
+              <div>
+                <b>最優先施策に絞る</b>
+                <p>告知や現場負荷まで含め、効果が高い施策を実行可能な形に落とします。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="section" id="pricing" aria-label="料金">
+      <div class="card">
+        <div class="cardHeader">
+          <h2>💳 料金</h2>
+        </div>
+        <div class="cardBody">
+          <div class="pricing" aria-label="料金プラン">
+            <div class="card priceCard">
+              <div class="cardBody">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <b>🆓 無料トライアル</b>
+                  <span class="pill">今すぐ</span>
+                </div>
+                <div class="price">0円</div>
+                <div class="row" style="margin-top:8px;">
+                  <a class="btn btnPrimary" href="#trial">無料で試す</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="card priceCard">
+              <div class="cardBody">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <b>⭐ Pro（準備中/要相談）</b>
+                  <span class="pill pillSoft">相談</span>
+                </div>
+                <div class="price">要相談 <small>/ 月</small></div>
+                <div class="row" style="margin-top:8px;">
+                  <a class="btn btnSoft" href="#feedback">要望を送る</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="softNote">※Proプランは準備中のため、要望フォームからご相談ください。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRIAL + RESULT -->
+    <section class="section" id="trial" aria-label="無料トライアル">
+      <div class="twoCol">
+        <div class="card">
+          <div class="cardHeader">
+            <h2>🧪 無料トライアル（分析時間：約７分）</h2>
+          </div>
+          <div class="cardBody">
+            <label for="serviceName">【施設名・サービス名】</label>
+            <input id="serviceName" placeholder="例：ユニバーサル・スタジオ・ジャパン" />
+
+            <label for="serviceUrl">【URL】</label>
+            <input id="serviceUrl" placeholder="例：https://www.usj.co.jp/web/ja/jp" />
+
+            <label for="goal">【課題・目標】</label>
+            <input id="goal" placeholder="例：平日の稼働率を上げたい（例：平日来場者+3%）" />
+
+            <label for="constraints">【制約】</label>
+            <input id="constraints" placeholder="例：新規システム導入は避ける／現場負荷が過大にならない範囲" />
+
+            <label for="notes">【補足】</label>
+            <textarea id="notes" placeholder="例：競合、ターゲット、季節性（繁閑）、直近施策など"></textarea>
+
+            <div class="row">
+              <button class="btn btnPrimary" id="run">⚡ レポートを生成</button>
+              <button class="btn btnGhost" id="fillSample">✍️ サンプル</button>
+              <button class="btn btnGhost" id="clear">🧹 クリア</button>
+            </div>
+
+            <div class="help">
+              ※出力には７分程度かかります。
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cardHeader">
+            <h2>📄 生成結果</h2>
+          </div>
+          <div class="cardBody">
+            <div class="status">
+              <div class="statusLeft">
+                <div class="spinner" id="spin" aria-hidden="true"></div>
+                <div class="statusText" id="status">未実行</div>
+              </div>
+              <div class="row" style="margin:0;">
+                <button class="btn btnGhost btnSmall" id="copy" disabled>⧉ コピー</button>
+                <button class="btn btnGhost btnSmall" id="downloadPdf" disabled>📄 PDF</button>
+              </div>
+            </div>
+
+            <div class="resultBox">
+              <div class="md" id="result">ここにレポートが表示されます。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEEDBACK (bottom) -->
+    <section class="section" id="feedback" aria-label="要望フォーム">
+      <div class="card">
+        <div class="cardHeader">
+          <h2>📝 要望フォーム</h2>
+          <span>改善のためにご協力ください</span>
+        </div>
+        <div class="cardBody">
+          <div class="callout">
+            <b>💬 「欲しい機能」や「使いにくい点」を教えてください。</b>
+            <p>回答は2〜3分で完了します。いただいた内容を参考にして順次改善します。</p>
+          </div>
+
+          <div class="row" style="margin-top:12px;">
+            <a
+              class="btn btnPrimary"
+              href="https://forms.gle/z54TfgfK1o2f5NfC6"
+              target="_blank"
+              rel="noopener"
+            >🔗 要望フォームへ（別タブ）</a>
+          </div>
+
+          <div class="help" style="margin-top:10px;">※フォームは別ページで開きます。</div>
+
+          <footer class="footer" style="margin-top:16px;">
+            © Marketing Issues Draft
+          </footer>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    /**
+     * Dify連携（安全版）
+     * - ブラウザからDify API Keyを扱わないため、GAS中継（Proxy）を叩きます
+     * - GASが Dify /v1/workflows/run（blocking）を呼び、結果JSONをそのまま返します
+     */
+    /* ⚠️ PoC最短：Dify APIキーをブラウザに埋め込みます。
+   外部公開や第三者利用の用途では絶対に使わないでください（キーが漏れます）。 */
+    const DIFY_API_KEY = "app-aJCOlDgIOF6bq4NpQX9hNs1A";
+    const DIFY_RUN_URL = "https://api.dify.ai/v1/workflows/run";
+
+    // Elements
+    const runBtn = document.getElementById("run");
+    const spin = document.getElementById("spin");
+    const statusEl = document.getElementById("status");
+    const resultEl = document.getElementById("result");
+    const copyBtn = document.getElementById("copy");
+    const pdfBtn = document.getElementById("downloadPdf");
+
+    window.addEventListener("DOMContentLoaded", () => {
+const serviceNameEl = document.getElementById("serviceName");
+    const serviceUrlEl = document.getElementById("serviceUrl");
+    const goalEl = document.getElementById("goal"); 
+    const constraintsEl = document.getElementById("constraints");
+    const notesEl = document.getElementById("notes");
+
+    let lastMarkdown = "";
+    let lastPdfUrl = "";
+
+    function setLoading(isLoading){
+      spin.style.display = isLoading ? "block" : "none";
+      runBtn.disabled = isLoading;
+      runBtn.textContent = isLoading ? "生成中..." : "⚡ レポートを生成";
+    }
+
+  
+  function extractFirstHttpUrl(s){
+    if (typeof s !== "string") return null;
+    const m = s.match(/https?:\/\/[^\s'"\]\}<>]+/i);
+    return m ? m[0] : null;
+  }
+
+  function fixAnchorsToHttp(container){
+    const anchors = container.querySelectorAll("a[href]");
+    anchors.forEach(a => {
+      const href = a.getAttribute("href") || "";
+      // 文字列化された配列/辞書がリンク扱いになり file:/// に解決されるケースを救済
+      // href または表示テキストから https URL を抽出して差し替える
+      const url = extractFirstHttpUrl(href) || extractFirstHttpUrl(a.textContent || "");
+      if (url){
+        a.setAttribute("href", url);
+        a.setAttribute("target", "_blank");
+        a.setAttribute("rel", "noopener noreferrer");
+      }
+    });
+  }
+
+  function normalizePdfUrl(v){
+    if (v == null) return "";
+    if (typeof v === "object") {
+      try { v = v.url || v.link || JSON.stringify(v); } catch(_){ v = String(v); }
+    }
+    const s = String(v);
+    return extractFirstHttpUrl(s) || s;
+  }
+
+  function renderMarkdown(md){
+      marked.setOptions({ breaks: true });
+      resultEl.innerHTML = marked.parse(md || "");
+      fixAnchorsToHttp(resultEl);
+    }
+
+    function getOrCreateUserId(){
+      const key = "fgi_user_id";
+      const existing = localStorage.getItem(key);
+      if(existing) return existing;
+      const id = (window.crypto && crypto.randomUUID) ? ("web-" + crypto.randomUUID()) : ("web-" + String(Date.now()));
+      localStorage.setItem(key, id);
+      return id;
+    }
+
+    function buildInputs(){
+      const service_name = (serviceNameEl.value || "").trim();
+      const url = (serviceUrlEl.value || "").trim();
+      const assumed_issue = (goalEl.value || "").trim();     // Startノード: assumed_issue
+      const message = (notesEl.value || "").trim();          // Startノード: message
+      const constraints = (constraintsEl.value || "").trim();
+
+      return { service_name, url, assumed_issue, message, constraints };
+    }
+
+    // Sample input
+    document.getElementById("fillSample").addEventListener("click", () => {
+      serviceNameEl.value = "ユニバーサル・スタジオ・ジャパン";
+      serviceUrlEl.value = "https://www.usj.co.jp/web/ja/jp";
+      goalEl.value = "平日の稼働率を上げたい（例：平日来場者+3%）";
+      constraintsEl.value = "新規システム導入は避ける／現場負荷が過大にならない範囲";
+      notesEl.value = "競合との差別化を明確にしたい。";
+    });
+
+    // Clear
+    document.getElementById("clear").addEventListener("click", () => {
+      serviceNameEl.value = "";
+      serviceUrlEl.value = "";
+      goalEl.value = "";
+      constraintsEl.value = "";
+      notesEl.value = "";
+    });
+
+    // Copy markdown
+    copyBtn.addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(lastMarkdown || "");
+        statusEl.textContent = "コピーしました";
+        setTimeout(() => (statusEl.textContent = "完了"), 1200);
+      }catch(e){
+        statusEl.textContent = "コピーに失敗しました";
+      }
+    });
+
+    // Open PDF
+    function safeFileName(name){
+  return String(name || "report")
+    .replace(/[\\\/:*?"<>|]/g, "_")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 60) || "report";
+}
+
+function timeStamp(){
+  const d = new Date();
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}`;
+}
+
+async function downloadPdf(url){
+  url = normalizePdfUrl(url);
+
+  const originalText = pdfBtn.textContent;
+  try{
+    pdfBtn.disabled = true;
+    pdfBtn.textContent = "ダウンロード中…";
+
+    // 可能ならblob取得して“保存”としてダウンロード
+    const res = await fetch(url, { mode: "cors" });
+    if(!res.ok) throw new Error("fetch failed");
+    const blob = await res.blob();
+
+    const filename = `${safeFileName(serviceNameEl.value)}_${timeStamp()}.pdf`;
+    const objectUrl = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = objectUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+  }catch(e){
+    // CORS等でblob取得できない場合は、新規タブで開く（ユーザーが保存できる）
+    window.open(url, "_blank", "noopener,noreferrer");
+  }finally{
+    pdfBtn.textContent = originalText;
+    pdfBtn.disabled = !lastPdfUrl;
+  }
+}
+
+pdfBtn.addEventListener("click", () => {
+  if(!lastPdfUrl){
+    statusEl.textContent = "PDF URLが見つかりません";
+    return;
+  }
+  downloadPdf(lastPdfUrl);
+});
+// Run (async: start -> poll)
+    runBtn.addEventListener("click", async () => {
+      const inputs = buildInputs();
+
+      // 必須チェック
+      if(!inputs.service_name || !inputs.assumed_issue){
+        statusEl.textContent = "サービス名と目標は必須です";
+        return;
+      }
+
+      lastMarkdown = "";
+      lastPdfUrl = "";
+      copyBtn.disabled = true;
+      pdfBtn.disabled = true;
+
+      setLoading(true);
+      statusEl.textContent = "開始中…";
+      resultEl.textContent = "生成を開始しました。結果を取得しています…";
+
+      const userId = getOrCreateUserId();
+
+      
+// ===== PoC: ブラウザからDifyへ直接アクセス（start→poll） =====
+// 1) start: streaming(SSE)で起動して、workflow_run_id を拾ったらすぐ返す
+async function startRunGetId(inputs, userId){
+  if(!DIFY_API_KEY || DIFY_API_KEY === "PASTE_YOUR_DIFY_API_KEY_HERE"){
+    throw new Error("Dify APIキーが未設定です。HTML内の DIFY_API_KEY を貼り付けてください。");
+  }
+
+  const res = await fetch(DIFY_RUN_URL, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${DIFY_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      inputs,
+      response_mode: "streaming",
+      user: userId
+    })
+  });
+
+  if(!res.ok){
+    const t = await res.text();
+    throw new Error(`Dify start error (HTTP ${res.status})\n${t.slice(0, 400)}`);
+  }
+
+  // SSE を少しだけ読む（workflow_run_id が見つかったらキャンセル）
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buf = "";
+
+  while(true){
+    const {value, done} = await reader.read();
+    if(done) break;
+    buf += decoder.decode(value, {stream:true});
+
+    const m = buf.match(/"workflow_run_id"\s*:\s*"([^"]+)"/);
+    if(m){
+      // ここでストリームをキャンセルすると、環境によっては生成自体が途中で止まり、
+      // outputs.markdown が「途中で途切れる」ことがあります。
+      // そのため、IDを取得したら“バックグラウンドで読み切って”接続を自然終了させます（生成は継続）。
+      (async () => {
+        try{
+          while(true){
+            const r = await reader.read();
+            if(r.done) break;
+          }
+        }catch(_){}
+      })();
+      return m[1];
+    }
+
+    if(buf.length > 20000) buf = buf.slice(-10000);
+  }
+
+  throw new Error("workflow_run_id を取得できませんでした（SSEから見つかりません）。");
+}
+
+// 2) poll: run_idで実行詳細を取得（status / outputs）
+async function pollRunDetail(runId){
+  const res = await fetch(`${DIFY_RUN_URL}/${encodeURIComponent(runId)}`, {
+    method: "GET",
+    headers: { "Authorization": `Bearer ${DIFY_API_KEY}` }
+  });
+
+  const t = await res.text();
+  let j;
+  try { j = t ? JSON.parse(t) : {}; }
+  catch(_) {
+    throw new Error(`Dify poll non-JSON (HTTP ${res.status})\n${t.slice(0, 200)}`);
+  }
+
+  if(!res.ok){
+    throw new Error(`Dify poll error (HTTP ${res.status})\n${t.slice(0, 400)}`);
+  }
+  return j;
+}
+try{
+        // 1) start（run_id を取得：ここでは workflow_run_id）
+        const runId = await startRunGetId(inputs, userId);
+
+statusEl.textContent = "実行中…";
+        resultEl.textContent = "処理を実行しています。完了までお待ちください…";
+
+        // 2) poll（指数バックオフ）
+        const startedAt = Date.now();
+        let waitMs = 2000;
+        const maxWaitMs = 15000;
+        const hardTimeoutMs = 10 * 60 * 1000; // 10分
+
+        while(true){
+          // タイムアウト
+          const elapsed = Date.now() - startedAt;
+          if(elapsed > hardTimeoutMs){
+            throw new Error("タイムアウト：実行が長時間完了しませんでした。Difyログで該当実行の状態を確認してください。");
+          }
+
+          // 少し待つ
+          await new Promise(r => setTimeout(r, waitMs));
+
+                    const pollResp = await pollRunDetail(runId);
+
+// pollResp は Dify の「実行詳細」レスポンス（形式が環境で異なることがあるため正規化）
+          const detail = (pollResp && typeof pollResp === "object" && pollResp.data && typeof pollResp.data === "object")
+            ? pollResp.data
+            : pollResp;
+
+          const status = detail && detail.status ? detail.status : "";
+          let outputs = (detail && Object.prototype.hasOwnProperty.call(detail, "outputs")) ? detail.outputs : {};
+          // outputs が JSON文字列で返るケース（例: "{\"markdown\":\"...\"}"）に対応
+          if(typeof outputs === "string"){
+            const trimmed = outputs.trim();
+            if((trimmed.startsWith("{") && trimmed.endsWith("}")) || (trimmed.startsWith("[") && trimmed.endsWith("]"))){
+              try{ outputs = JSON.parse(outputs); }catch(_){}
+            }
+          }
+          if(outputs == null) outputs = {};
+          const errMsg = (detail && detail.error) ? detail.error : (pollResp && pollResp.error ? pollResp.error : "");
+
+          const s = String(status || "").toLowerCase();
+          const runningStates = new Set(["running","pending","queued","processing","started","in_progress"]);
+          const successStates = new Set(["succeeded","completed","success","done","finished"]);
+          const failStates = new Set(["failed","error","stopped","cancelled","canceled","timeout"]);
+
+          if(runningStates.has(s) || !s){
+            const sec = Math.floor(elapsed / 1000);
+            statusEl.textContent = `実行中…（${sec}s）`;
+            // 次は少し間隔を伸ばす（上限あり）
+            waitMs = Math.min(Math.round(waitMs * 1.35), maxWaitMs);
+            continue;
+          }
+
+          if(successStates.has(s)){
+            let md = "";
+            let pdf = "";
+
+            if(typeof outputs === "string"){
+              md = outputs;
+            }else if(outputs && typeof outputs === "object"){
+              md = outputs.markdown || outputs.text || outputs.result || outputs.output || outputs.content || "";
+              pdf = outputs.pdf_url || outputs.pdf || outputs.pdfUrl || "";
+            }
+
+            // まれに outputs が detail 直下ではなく別キーに入るケースも拾う
+            if(!md){
+              const alt = (detail && typeof detail === "object") ? (detail.markdown || detail.text || detail.result) : "";
+              if(typeof alt === "string") md = alt;
+            }
+            if(!pdf){
+              const altPdf = (detail && typeof detail === "object") ? (detail.pdf_url || detail.pdf) : "";
+              if(typeof altPdf === "string") pdf = altPdf;
+            }
+            pdf = normalizePdfUrl(pdf);
+
+                        // 念のため：statusがsucceededでも outputs が遅延更新されることがあるため、少し長めに再取得して「最も長い markdown」を採用
+            try{
+              let bestMd = (typeof md === "string") ? md : "";
+              let bestPdf = (typeof pdf === "string") ? pdf : "";
+              let same = 0;
+
+              for(let i=0; i<12; i++){
+                await new Promise(r => setTimeout(r, 1200));
+                const pollResp2 = await pollRunDetail(runId);
+                const detail2 = (pollResp2 && typeof pollResp2 === "object" && pollResp2.data && typeof pollResp2.data === "object")
+                  ? pollResp2.data
+                  : pollResp2;
+
+                let outputs2 = (detail2 && Object.prototype.hasOwnProperty.call(detail2, "outputs")) ? detail2.outputs : {};
+                if(typeof outputs2 === "string"){
+                  const trimmed2 = outputs2.trim();
+                  if((trimmed2.startsWith("{") && trimmed2.endsWith("}")) || (trimmed2.startsWith("[") && trimmed2.endsWith("]"))){
+                    try{ outputs2 = JSON.parse(outputs2); }catch(_){}
+                  }
+                }
+                if(outputs2 == null) outputs2 = {};
+
+                let md2 = "";
+                let pdf2 = "";
+                if(typeof outputs2 === "string"){
+                  md2 = outputs2;
+                }else if(outputs2 && typeof outputs2 === "object"){
+                  md2 = outputs2.markdown || outputs2.text || outputs2.result || outputs2.output || outputs2.content || "";
+                  pdf2 = outputs2.pdf_url || outputs2.pdf || outputs2.pdfUrl || outputs2.pdf_link || outputs2.pdfLink || "";
+                }
+
+                // まれに outputs が detail 直下ではなく別キーに入るケースも拾う
+                if(!md2){
+                  const alt2 = (detail2 && typeof detail2 === "object") ? (detail2.markdown || detail2.text || detail2.result) : "";
+                  if(typeof alt2 === "string") md2 = alt2;
+                }
+                if(!pdf2){
+                  const altPdf2 = (detail2 && typeof detail2 === "object") ? (detail2.pdf_url || detail2.pdf) : "";
+                  if(typeof altPdf2 === "string") pdf2 = altPdf2;
+                }
+
+                if(md2 && md2.length > bestMd.length){
+                  bestMd = md2;
+                  same = 0;
+                }else{
+                  same += 1;
+                }
+
+                if(!bestPdf && pdf2) bestPdf = pdf2;
+
+                // 2回連続で伸びないなら十分とみなして打ち切り
+                if(same >= 4) break;
+              }
+
+              md = bestMd;
+              if(!pdf && bestPdf) pdf = bestPdf;
+
+            }catch(_){}
+
+
+            lastMarkdown = md;
+            lastPdfUrl = normalizePdfUrl(pdf);
+
+            if(md || pdf){
+              renderMarkdown(md || "（PDFのみ生成されました）");
+            }else{
+              // デバッグしやすいよう、取得したレスポンスをそのまま表示
+              const raw = JSON.stringify(detail, null, 2);
+              renderMarkdown(
+                "（出力が空でした。Difyの出力ノードで `markdown` / `pdf_url` が設定されているか確認してください）\n\n" +
+                "---\n\n" +
+                "### デバッグ：取得したレスポンス（コピペ用）\n" +
+                "```json\n" + raw + "\n```"
+              );
+            }
+
+            copyBtn.disabled = !md;
+            pdfBtn.disabled = !lastPdfUrl;
+
+            statusEl.textContent = "完了";
+            break;
+          }
+
+          if(failStates.has(s)){
+            throw new Error(`Dify実行が失敗しました（status: ${status}）
+${errMsg || "（エラー詳細なし）"}`.slice(0, 1400));
+          }
+
+          // 想定外ステータス：表示して継続
+          const sec = Math.floor(elapsed / 1000);
+          statusEl.textContent = `実行中…（${sec}s / status: ${status}）`;
+          waitMs = Math.min(Math.round(waitMs * 1.35), maxWaitMs);
+          continue;
+        }
+
+      }catch(err){
+        console.error(err);
+        statusEl.textContent = "エラー";
+        const msg = (err && err.message) ? err.message : String(err);
+        resultEl.textContent = `エラー詳細：\n${msg}\n\n確認ポイント：\n・HTML内の DIFY_API_KEY が正しいか（貼り付け済みか）\n・Dify Endノードの出力が markdown / pdf_url になっているか\n・Difyログで該当実行が running のまま詰まっていないか\n・レート制限（Too many requests）が出ていないか（ポーリング間隔を上げる）\n・もし Console に CORS エラーが出る場合：ブラウザからDifyへ直接は不可（PoC手段を切替が必要）`;
+      }finally{
+        setLoading(false);
+      }
+    });
+  
+});
+</script>
+</body>
+</html>
